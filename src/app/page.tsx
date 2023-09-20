@@ -1,11 +1,12 @@
 import Hero from '@/components/Hero';
-import ProfileCard from '@/components/Hero';
-import Image from 'next/image';
+import FeaturePosts from '@/components/FeaturePosts';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      {/* @ts-expect-error Async Server Component */}
+      <FeaturePosts />
     </>
   );
 }

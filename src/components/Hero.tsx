@@ -12,7 +12,6 @@ export default function Hero() {
         width={250}
         height={250}
         priority
-        // 홈페이지에서 가장 상징적이고 먼저 보여줘야하기 때문에(브랜드 이미지) priority 속성 사용 -> nextjs에서 가장 먼저 다운받음
       />
       <h2 className='text-3xl font-bold mt-2'>{"Hi, I'm River"}</h2>
       <h3 className='text-xl font-semibold'>Fronted Developer</h3>
