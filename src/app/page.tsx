@@ -1,12 +1,12 @@
 import Hero from '@/components/Hero';
-import FeaturePosts from '@/components/FeaturePosts';
+import FeaturedPosts from '@/components/FeaturedPosts';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       {/* @ts-expect-error Async Server Component */}
-      <FeaturePosts />
+      <FeaturedPosts />
     </>
   );
 }
