@@ -1,16 +1,10 @@
-import { getPosts } from '@/service/posts';
+import FilterablePost from '@/components/FilterablePost';
+import { getAllPosts } from '@/service/posts';
 import React from 'react';
 
 export default async function PostsPage() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
+  const categories = [...new Set(posts.map((post) => post.category))];
 
-  return (
-    <>
-      <ul>
-        {posts.map((item, index) => (
-          <li key={index}>{item.date}</li>
-        ))}
-      </ul>
-    </>
-  );
+  return <FilterablePost posts={posts} categories={categories} />;
 }
