@@ -8,8 +8,14 @@ import Footer from '@/components/Footer';
 const sans = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'My-Blog',
-  description: '나의 멋진 블로그',
+  title: {
+    default: '석호의 블로그',
+    template: '석호의 블로그 | %s',
+  },
+  description: '프론트엔드 개발자 석호의 블로그',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
