@@ -2,6 +2,7 @@
 
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Banner, { BannerData } from './Banner';
+import { sendContactEmail } from '@/service/contact';
 
 type Form = {
   from: string;
@@ -9,12 +10,14 @@ type Form = {
   message: string;
 };
 
+const DEFAULT_DATA = {
+  from: '',
+  subject: '',
+  message: '',
+};
+
 export default function ContactForm() {
-  const [form, setForm] = useState<Form>({
-    from: '',
-    subject: '',
-    message: '',
-  });
+  const [form, setForm] = useState<Form>(DEFAULT_DATA);
 
   const [banner, setBanner] = useState<BannerData | null>(null);
 
@@ -25,13 +28,23 @@ export default function ContactForm() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('form', form);
 
-    setBanner({ message: '성공했어!!', state: 'success' });
-
-    setTimeout(() => {
-      setBanner(null);
-    }, 3000);
+    sendContactEmail(form)
+      .then(() => {
+        setBanner({ message: '성공했어!!', state: 'success' });
+        setForm(DEFAULT_DATA);
+      })
+      .catch(() => {
+        setBanner({
+          message: '메일 전송에 실패. 다시 시도해주세요!',
+          state: 'error',
+        });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setBanner(null);
+        }, 3000);
+      });
   };
 
   return (
@@ -39,9 +52,9 @@ export default function ContactForm() {
       {banner && <Banner banner={banner} />}
       <form
         onSubmit={onSubmit}
-        className='w-full flex flex-col gap-2 my-4 p-4 bg-slate-700 rounded-xl text-black'
+        className='w-full flex flex-col gap-2 my-4 p-4 bg-slate-700 rounded-xl'
       >
-        <label htmlFor='from' className='font-semibold'>
+        <label htmlFor='from' className='font-semibold text-white'>
           Your Email
         </label>
         <input
@@ -54,7 +67,7 @@ export default function ContactForm() {
           onChange={onChange}
         />
 
-        <label htmlFor='subject' className='font-semibold'>
+        <label htmlFor='subject' className='font-semibold text-white'>
           Subject
         </label>
         <input
@@ -66,7 +79,7 @@ export default function ContactForm() {
           onChange={onChange}
         />
 
-        <label htmlFor='message' className='font-semibold'>
+        <label htmlFor='message' className='font-semibold text-white'>
           Message
         </label>
         <textarea
@@ -76,7 +89,6 @@ export default function ContactForm() {
           required
           value={form.message}
           onChange={onChange}
-          className='text-black'
         />
 
         <button className='bg-yellow-300 text-black font-bold hover:bg-yellow-400'>
