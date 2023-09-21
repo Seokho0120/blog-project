@@ -8,9 +8,6 @@ const LINKS = [
   { icon: <AiFillYoutube />, url: 'https://github.com/Seokho0120' },
 ];
 
-// 웹 페이지내에서 경로 이동은  <Link/> 사용
-// 외부 경로는 <a></a> 사용
-
 export default function ContactPage() {
   return (
     <section className='flex flex-col items-center'>
