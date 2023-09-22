@@ -1,5 +1,5 @@
 import FilterablePost from '@/components/FilterablePost';
-import { getAllPosts } from '@/service/posts';
+import { getAllposts } from '@/service/posts';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PostsPage() {
-  const posts = await getAllPosts();
+  const posts = await getAllposts();
   const categories = [...new Set(posts.map((post) => post.category))];
 
   return <FilterablePost posts={posts} categories={categories} />;
